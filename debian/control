@@ -1,0 +1,18 @@
+Source: php-maxminddb
+Section: php
+Priority: optional
+Maintainer: Chen-Yu Tsai <wens@csie.org>
+Build-Depends: debhelper (>=9), php-all-dev, dh-php, libmaxminddb-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/maxmind/MaxMind-DB-Reader-php
+
+Package: php-maxminddb
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${php:Depends}
+Description: MaxMind DB Reader API C extension for PHP
+ This is the C extension implementing the PHP API for reading MaxMind
+ DB files. MaxMind DB is a binary file format that stores data indexed
+ by IP address subnets (IPv4 or IPv6).
+ .
+ For more info, please visit Maxmind's website:
+ http://www.maxmind.com/
