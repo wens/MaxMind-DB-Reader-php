@@ -21,7 +21,7 @@ version="${BASH_REMATCH[1]}"
 date="${BASH_REMATCH[2]}"
 notes="$(echo "${BASH_REMATCH[3]}" | sed -n -e '/^[0-9]\+\.[0-9]\+\.[0-9]\+/,$!p')"
 
-if [[ "$date" -ne  $(date +"%Y-%m-%d") ]]; then
+if [[ "$date" !=  $(date +"%Y-%m-%d") ]]; then
     echo "$date is not today!"
     exit 1
 fi
@@ -31,11 +31,19 @@ tag="v$version"
 rm -fr vendor
 
 perl -pi -e "s/(?<=#define PHP_MAXMINDDB_VERSION \")\d+\.\d+\.\d+(?=\")/$version/" ext/php_maxminddb.h
+perl -pi -e "s/(?<=\"ext-maxminddb\": \"<)\d+.\d+.\d+(?=,)/$version/" composer.json
 
-php composer.phar self-update
-php composer.phar update
+pushd ext
+phpize
+./configure
+make
+popd
 
-./vendor/bin/phpunit
+php -n -dextension=ext/modules/maxminddb.so composer.phar self-update
+php -n -dextension=ext/modules/maxminddb.so composer.phar update
+
+php -n -dextension=ext/modules/maxminddb.so ./vendor/bin/phpunit
+php -n ./vendor/bin/phpunit
 
 echo $'\nDiff:'
 git diff
