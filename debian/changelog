@@ -1,3 +1,10 @@
+php-maxminddb (1.9.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * PHP 7.2 or later now required
+
+ -- Chen-Yu Tsai <wens@csie.org>  Wed, 13 Jan 2021 09:52:30 +0000
+
 php-maxminddb (1.6.0-1) unstable; urgency=medium
 
   * New upstream release
